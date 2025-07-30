@@ -22,10 +22,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ji=%re7s41^#4fkv(cfu_zl$fhhn_p8!6cj!woz54nnh@k0)1w'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'fallback-key-for-dev')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     '8ba2ea104857.ngrok-free.app','*'
@@ -42,8 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'rest_framework_simplejwt',
     'inventory',
+
 ]
 
 MIDDLEWARE = [
@@ -137,11 +138,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
-    ],
 }
-
 # Custom user model
 AUTH_USER_MODEL = 'inventory.User'
 
